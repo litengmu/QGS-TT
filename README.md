@@ -7,7 +7,7 @@ The proposed method integrates the Quotient Gradient System (QGS) with Trust-Tec
 
 ## 📁 Project Structure
 
-- `case/`: Contains 31 state-of-the-art ACOPF test cases from:
+- `case/`: Contains 22 state-of-the-art ACOPF test cases from:
   - [MATPOWER 7.1](https://matpower.org/)
   - [OptEnergy LocalOpt](https://www.maths.ed.ac.uk/OptEnergy/LocalOpt/)
   - *Advanced Testing: [PGLIB-OPF](https://github.com/power-grid-lib/pglib-opf) cases (not included by default)*
