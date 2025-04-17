@@ -37,9 +37,10 @@ The proposed method integrates the Quotient Gradient System (QGS) with Trust-Tec
 2. **Configuration**
    ```matlab
    % In MATLAB:
-   addpath(genpath('/path/to/matpower-4.1'));
-   addpath('/path/to/mips');
-   addpath('/path/to/ipopt-matlab');
+   addpath(genpath('/path/to/matpower4.1'));
+   addpath('/path/to/ipopt_func');
+   addpath('/path/to/mips_func');
+   addpath('/path/to/case');
 
 ## 🧪 Feasibility Verification
    ```matlab
@@ -58,10 +59,10 @@ The proposed method integrates the Quotient Gradient System (QGS) with Trust-Tec
    If you use this work, please cite:
    @article{QGS-TT-2025,
      title={A QGS-Based Trust-Tech Method for ACOPF Feasibility Analysis},
-     author={Your Name et al.},
+     author={Tengmu Li, Hsiao-Dong Chiang, Zhi-Yuan Wang},
      journal={IEEE Transactions on Power Systems},
      year={2025},
-     doi={10.xxxx/TPS.2023.xxxxxx}
+     doi={10.xxxx/TWPRS.2025.xxxxxx}
    }
 
 ## 📧 Contact
