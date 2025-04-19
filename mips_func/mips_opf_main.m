@@ -1,5 +1,4 @@
-% clc
-% clear global
+
 clear
 clc
 tic

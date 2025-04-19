@@ -92,7 +92,7 @@ funcs.hessianstructure  = @(d) Hs;
 %funcs.hessianstructure  = @hessianstructure;
 
 
-Npnts=10000;
+Npnts=1000;
 %%-----  run opf  -----
 for j=1:Npnts
     theta = zeros(nb, 1);

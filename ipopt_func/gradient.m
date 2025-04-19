@@ -1,3 +1,7 @@
 function df = gradient(x, d)
-    f = 0;
-    df = zeros(length(x), 1);  % Zero vector, as the gradient of a constant is zero
+
+% optimality
+%[f, df] = opf_costfcn(x, d.om);
+% feasibility
+f = 0;
+df = zeros(length(x), 1);  % Zero vector, as the gradient of a constant is zero

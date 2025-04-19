@@ -1,5 +1,4 @@
 
-casename='WB2';
 casedata =feval(casename);
 
 casedata.branch(casedata.branch(:,6)<1e-4,6) = 9999;  

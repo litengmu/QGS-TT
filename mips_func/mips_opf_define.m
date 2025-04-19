@@ -2,10 +2,14 @@
 
 casedata = feval(casename);
 
-%casedata.branch(casedata.branch(:,6)<1e-4,6) = 9999;
+casedata.branch(casedata.branch(:,6)<1e-4,6) = 9999;
 fprintf('-------Start Solve Case: %s....\n\n',casename)
+
+%% process input arguments
+[mpc, mpopt] = opf_args(casedata, mpoption );
+
 mpopt = mpoption('OPF_ALG',560,'OUT_ALL',0);
-%mpopt = mpoption;
+
 %%----- initialization -----
 %% define named indices into data matrices
 [PQ, PV, REF, NONE, BUS_I, BUS_TYPE, PD, QD, GS, BS, BUS_AREA, VM, ...
@@ -18,8 +22,23 @@ mpopt = mpoption('OPF_ALG',560,'OUT_ALL',0);
     ANGMIN, ANGMAX, MU_ANGMIN, MU_ANGMAX] = idx_brch;
 [PW_LINEAR, POLYNOMIAL, MODEL, STARTUP, SHUTDOWN, NCOST, COST] = idx_cost;
 
+%mpopt = mpoption;
+%% add zero columns to bus, gen, branch for multipliers, etc if needed
+nb   = size(mpc.bus, 1);    %% number of buses
+nl   = size(mpc.branch, 1); %% number of branches
+ng   = size(mpc.gen, 1);    %% number of dispatchable injections
+if size(mpc.bus,2) < MU_VMIN
+  mpc.bus = [mpc.bus zeros(nb, MU_VMIN-size(mpc.bus,2)) ];
+end
+if size(mpc.gen,2) < MU_QMIN
+  mpc.gen = [ mpc.gen zeros(ng, MU_QMIN-size(mpc.gen,2)) ];
+end
+if size(mpc.branch,2) < MU_ANGMAX
+  mpc.branch = [ mpc.branch zeros(nl, MU_ANGMAX-size(mpc.branch,2)) ];
+end
+
 %% unpack data
-mpc = ext2int(casedata);
+mpc = ext2int(mpc);
 om = opf_setup(mpc, mpopt);
 om = build_cost_params(om);
 
@@ -81,6 +100,7 @@ nl2 = length(il);           %% number of constrained lines
 
 %%-----  run opf  -----
 f_fcn=@(x)cost_zero(x);
+%f_fcn = @(x)opf_costfcn(x, om);
 gh_fcn = @(x)opf_consfcn(x, om, Ybus, Yf(il,:), Yt(il,:), mpopt, il);
 hess_fcn = @(x, lambda, cost_mult)opf_hessfcn(x, lambda, cost_mult, om, Ybus, Yf(il,:), Yt(il,:), mpopt, il);
 
